@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Sep 10, 2025 at 07:07 PM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.1.25
+-- Host: localhost:3306
+-- Generation Time: Feb 08, 2026 at 06:59 AM
+-- Server version: 9.1.0
+-- PHP Version: 8.3.16
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -28,10 +28,10 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `tb_admin` (
-  `id` int(11) NOT NULL,
-  `username` varchar(50) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `id` int NOT NULL,
+  `username` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -48,12 +48,12 @@ INSERT INTO `tb_admin` (`id`, `username`, `password`, `created_at`) VALUES
 --
 
 CREATE TABLE `tb_content` (
-  `id` int(11) NOT NULL,
-  `section` varchar(50) NOT NULL,
-  `content_key` varchar(100) NOT NULL,
-  `content_value` text NOT NULL,
-  `content_type` enum('text','image','url') DEFAULT 'text',
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `id` int NOT NULL,
+  `section` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `content_key` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `content_value` text COLLATE utf8mb4_general_ci NOT NULL,
+  `content_type` enum('text','image','url') COLLATE utf8mb4_general_ci DEFAULT 'text',
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -80,13 +80,13 @@ INSERT INTO `tb_content` (`id`, `section`, `content_key`, `content_value`, `cont
 --
 
 CREATE TABLE `tb_daily_stats` (
-  `id` int(11) NOT NULL,
+  `id` int NOT NULL,
   `stat_date` date DEFAULT NULL,
-  `total_visitors` int(11) DEFAULT 0,
-  `virtual_tour_visitors` int(11) DEFAULT 0,
-  `kritik_saran_count` int(11) DEFAULT 0,
-  `admin_visits` int(11) DEFAULT 0,
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `total_visitors` int DEFAULT '0',
+  `virtual_tour_visitors` int DEFAULT '0',
+  `kritik_saran_count` int DEFAULT '0',
+  `admin_visits` int DEFAULT '0',
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -96,13 +96,13 @@ CREATE TABLE `tb_daily_stats` (
 --
 
 CREATE TABLE `tb_facilities` (
-  `id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `description` text NOT NULL,
-  `image` varchar(255) DEFAULT NULL,
-  `is_active` tinyint(1) DEFAULT 1,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `id` int NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `description` text COLLATE utf8mb4_general_ci NOT NULL,
+  `image` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `is_active` tinyint(1) DEFAULT '1',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -110,8 +110,8 @@ CREATE TABLE `tb_facilities` (
 --
 
 INSERT INTO `tb_facilities` (`id`, `name`, `description`, `image`, `is_active`, `created_at`, `updated_at`) VALUES
-(10, 'Perpustakaan', 'bisa membaca skripsi saya yang sudh di upload, Semangat Skripsisiannya adik adik abang lulus duluan ye \r\n', 'asset/perpustakaan 2.webp', 1, '2025-09-10 16:24:01', '2025-09-10 17:01:30'),
-(12, 'Ruang kela ber AC', 'rawrr', 'asset/kelas.jpg', 1, '2025-09-10 16:40:14', '2025-09-10 16:40:14');
+(10, 'Perpustakaan', 'bisa membaca skripsi saya yang sudah di upload, Semangat Skripsisiannya gais\r\n', 'asset/perpustakaan 2.webp', 1, '2025-09-10 16:24:01', '2025-09-11 17:16:50'),
+(12, 'Ruang Kelas', 'Ruang Proses Kelas dengan AC', 'asset/kelas.jpg', 1, '2025-09-10 16:40:14', '2025-09-11 17:17:45');
 
 -- --------------------------------------------------------
 
@@ -120,11 +120,11 @@ INSERT INTO `tb_facilities` (`id`, `name`, `description`, `image`, `is_active`, 
 --
 
 CREATE TABLE `tb_kritik_saran` (
-  `id` int(11) NOT NULL,
-  `nama` varchar(100) NOT NULL,
-  `kontak` varchar(100) NOT NULL,
-  `pesan` text NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `id` int NOT NULL,
+  `nama` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `kontak` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `pesan` text COLLATE utf8mb4_general_ci NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -145,13 +145,13 @@ INSERT INTO `tb_kritik_saran` (`id`, `nama`, `kontak`, `pesan`, `created_at`) VA
 --
 
 CREATE TABLE `tb_visitor_stats` (
-  `id` int(11) NOT NULL,
-  `ip_address` varchar(45) NOT NULL,
-  `user_agent` text DEFAULT NULL,
-  `page_visited` varchar(255) DEFAULT NULL,
+  `id` int NOT NULL,
+  `ip_address` varchar(45) COLLATE utf8mb4_general_ci NOT NULL,
+  `user_agent` text COLLATE utf8mb4_general_ci,
+  `page_visited` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `visit_date` date DEFAULT NULL,
-  `visit_time` timestamp NOT NULL DEFAULT current_timestamp(),
-  `is_admin` tinyint(1) DEFAULT 0
+  `visit_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `is_admin` tinyint(1) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -164,7 +164,10 @@ INSERT INTO `tb_visitor_stats` (`id`, `ip_address`, `user_agent`, `page_visited`
 (3, '192.168.1.102', 'Mozilla/5.0 (iPhone; CPU iPhone OS)', 'virtual_tour.php', '2025-09-09', '2025-09-10 16:49:29', 0),
 (4, '192.168.1.103', 'Mozilla/5.0 (Android 11)', 'fasilitas.php', '2025-09-09', '2025-09-10 16:49:29', 0),
 (5, '192.168.1.104', 'Mozilla/5.0 (Windows NT 10.0)', 'virtual_tour.php', '2025-09-03', '2025-09-10 16:49:29', 0),
-(6, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36', 'index.php', '2025-09-10', '2025-09-10 17:01:04', 1);
+(6, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36', 'index.php', '2025-09-10', '2025-09-10 17:01:04', 1),
+(7, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0', 'index.php', '2025-09-11', '2025-09-11 17:15:07', 0),
+(8, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0', 'virtual_tour.php', '2025-09-11', '2025-09-11 17:15:14', 0),
+(9, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 Edg/144.0.0.0', 'index.php', '2026-02-08', '2026-02-08 06:50:14', 0);
 
 -- --------------------------------------------------------
 
@@ -173,14 +176,14 @@ INSERT INTO `tb_visitor_stats` (`id`, `ip_address`, `user_agent`, `page_visited`
 --
 
 CREATE TABLE `tb_vr_hotspots` (
-  `id` int(11) NOT NULL,
-  `scene_id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `target_scene` varchar(100) NOT NULL,
+  `id` int NOT NULL,
+  `scene_id` int NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `target_scene` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
   `position_x` decimal(10,2) NOT NULL,
   `position_y` decimal(10,2) NOT NULL,
   `position_z` decimal(10,2) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -202,13 +205,13 @@ INSERT INTO `tb_vr_hotspots` (`id`, `scene_id`, `name`, `target_scene`, `positio
 --
 
 CREATE TABLE `tb_vr_scenes` (
-  `id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `description` text DEFAULT NULL,
-  `scene_key` varchar(100) NOT NULL,
-  `image_360` text NOT NULL,
-  `icon` varchar(100) DEFAULT 'fas fa-door-open',
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `id` int NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `description` text COLLATE utf8mb4_general_ci,
+  `scene_key` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `image_360` text COLLATE utf8mb4_general_ci NOT NULL,
+  `icon` varchar(100) COLLATE utf8mb4_general_ci DEFAULT 'fas fa-door-open',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -287,49 +290,49 @@ ALTER TABLE `tb_vr_scenes`
 -- AUTO_INCREMENT for table `tb_admin`
 --
 ALTER TABLE `tb_admin`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `tb_content`
 --
 ALTER TABLE `tb_content`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `tb_daily_stats`
 --
 ALTER TABLE `tb_daily_stats`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tb_facilities`
 --
 ALTER TABLE `tb_facilities`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `tb_kritik_saran`
 --
 ALTER TABLE `tb_kritik_saran`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `tb_visitor_stats`
 --
 ALTER TABLE `tb_visitor_stats`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `tb_vr_hotspots`
 --
 ALTER TABLE `tb_vr_hotspots`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `tb_vr_scenes`
 --
 ALTER TABLE `tb_vr_scenes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables
